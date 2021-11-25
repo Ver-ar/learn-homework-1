@@ -16,6 +16,7 @@
 from typing import MutableMapping
 
 def main():
+  while True:
 
     age_enter = input('Введите свой возраст: ').split()
     age_split = age_enter[0]
@@ -39,9 +40,10 @@ def main():
         else:
           return 'Наконец-то пенсия, можно и отдохнуть'
       print(f'{age}? {employment(age)}')
+      break
     except ValueError:
       print('Возраст должен начинаться с числа')
-      
+      continue
 
     
 if __name__ == "__main__":
