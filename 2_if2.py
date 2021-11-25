@@ -16,11 +16,30 @@
 """
 
 def main():
-    """
-    Эта функция вызывается автоматически при запуске скрипта в консоли
-    В ней надо заменить pass на ваш код
-    """
-    pass
+  while True:
+
+    first_line = input('Введите первую строку: ')
+    second_line = input('Введите вторую строку: ')
+    
+
+    try:
+      first_line = str(first_line)
+      second_line = str(second_line)
+        
+      def comparsions(first_line, second_line):
+        if first_line == second_line:
+          return '1'
+        elif first_line != second_line and len(first_line) >= len(second_line):
+          return '2'
+        elif first_line != second_line and second_line == 'learn':
+          return '3'
+            
+      print(comparsions(first_line, second_line))
+      
+    except ValueError:
+      print('0')
+      continue
+
     
 if __name__ == "__main__":
-    main()
+  main()
