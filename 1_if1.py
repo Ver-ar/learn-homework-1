@@ -17,26 +17,32 @@ from typing import MutableMapping
 
 def main():
 
-  age_enter = input('Введите свой возраст: ').split()
-  age_split = age_enter[0]
-  age = int(age_split)
-  age = abs(age)
+    age_enter = input('Введите свой возраст: ').split()
+    age_split = age_enter[0]
 
-  def employment(age):
-    if 0 <= age <= 3:
-      return 'Ты еще малыш! Можно посидеть дома и ничего не делать'
-    elif 4 <= age <= 6:
-      return 'Ты ходишь в детский сад, надеюсь, тебе там нравится!'
-    elif 7 <= age <= 18:
-      return 'Как дела в школе?'
-    elif 19 <= age <= 23:
-      return 'Учись, студент!'
-    elif 24 <= age <= 54:
-      return 'Опять работать на любимую работу?'
-    else:
-      return 'Наконец-то пенсия, можно и отдохнуть'
+    try:
+      age = int(age_split)
+      age = int(age)
+      age = abs(age)
+        
+      def employment(age):
+        if 0 <= age <= 3:
+          return 'Ты еще малыш! Можно посидеть дома и ничего не делать'
+        elif 4 <= age <= 6:
+          return 'Ты ходишь в детский сад, надеюсь, тебе там нравится!'
+        elif 7 <= age <= 18:
+          return 'Как дела в школе?'
+        elif 19 <= age <= 23:
+          return 'Учись, студент!'
+        elif 24 <= age <= 54:
+          return 'Опять работать на любимую работу?'
+        else:
+          return 'Наконец-то пенсия, можно и отдохнуть'
+      print(f'{age}? {employment(age)}')
+    except ValueError:
+      print('Возраст должен начинаться с числа')
+      
 
-  print(f'{age}? {employment(age)}')
-
+    
 if __name__ == "__main__":
   main()
