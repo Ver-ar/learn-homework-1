@@ -10,12 +10,18 @@
 """
 
 
-def hello_user():
-    """
-    Замените pass на ваш код
-    """
-    pass
+from typing import MutableMapping
 
+def hello_user():
+
+  while True:
+
+    question = str(input('Как дела?\n'))
+    if question == "Хорошо":
+      break
+    else:
+      question = str(input('Как дела?\n'))
     
+        
 if __name__ == "__main__":
-    hello_user()
+  hello_user()
