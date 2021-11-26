@@ -44,7 +44,7 @@ def main():
         
 
         
-    sales_sum += phone_sold
+    sales_sum += phone_sold()
     sales_sum_avg = round(sales_sum / len(sales), 2)
 
     print(f'Среднее количество продаж {phone["product"]}: {phone_sold_avg}')
