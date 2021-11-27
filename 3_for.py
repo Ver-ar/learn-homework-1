@@ -27,7 +27,7 @@ def main():
     items_sold_sum = 0
     for item_sold in phone_items_sold:
       items_sold_sum += item_sold
-    return count_phone_sold
+    return items_sold_sum
   
         
   def count_phone_sold_avg(phone_items_sold):
@@ -37,6 +37,7 @@ def main():
     return round(items_sold_sum / len(phone_items_sold), 2)
         
   sales_sum = 0
+  count = 0
   for phone in sales:
         
     phone_sold = count_phone_sold(phone["items_sold"])
@@ -44,14 +45,19 @@ def main():
         
 
         
-    sales_sum += phone_sold()
-    sales_sum_avg = round(sales_sum / len(sales), 2)
+    sales_sum += phone_sold
+    count += len(phone['items_sold'])
 
-    print(f'Среднее количество продаж {phone["product"]}: {phone_sold_avg}')
-    print(f'Суммарное количество продаж {phone["product"]}: {phone_sold}')        
+   
+
     
-  print(f'Среднее количество всех продаж: {sales_sum}')
-  print(f'Суммарное количество всех продаж: {sales_sum_avg}')
+    print(f'Среднее количество продаж {phone["product"]}: {phone_sold_avg}')
+    print(f'Суммарное количество продаж {phone["product"]}: {phone_sold}') 
+
+  sales_sum_avg = round(sales_sum / count, 2) 
+   
+  print(f'Среднее количество всех продаж: {sales_sum_avg}')
+  print(f'Суммарное количество всех продаж: {sales_sum}')
     
     
 if __name__ == "__main__":
