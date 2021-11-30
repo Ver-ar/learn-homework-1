@@ -41,10 +41,12 @@ def get_planet(update, context):
     #просто как аргумент к переменной update.message.text после ввода update.message.reply_text, потому что такая функция введена в модуле телеграм?
 
 def find_planet(update, context):
-    list_planet = ([ephem._libastro.builtin_planets()])
+    list_planet = [ephem._libastro.builtin_planets()]
     text = update.message.text
     if text in list_planet:
-      update.message.reply_text(getattr(ephem, text)(date.today()))
+      planet = getattr(ephem, text) 
+      planet_const = ephem.constellation(planet)
+      update.message.reply_text(planet_const)
     else:
       update.message.reply_text('Извини, по этой планете у меня нет информации(')
     
