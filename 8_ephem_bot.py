@@ -30,21 +30,23 @@ PROXY = {
 def greet_user(update, context):
     text = 'Вызван /start'
     print(text)
-    update.message.reply_text("Привет! С помощью меня ты можешь узнать в каком созвездии сегодня находится интересующая тебя планета! Набери: /planet planetname")
+    update.message.reply_text("Привет! С помощью меня ты можешь узнать в каком созвездии сегодня находится интересующая тебя планета! Набери: /planet")
 
 
 
 
-def ephem_planet(update, context):
+def get_planet(update, context):
+    print("Вызван /planet")
+    update.message.reply_text('Введи название планеты на английском языке') # не понимаю как отсюда передается сообщение пользователя в функцию find_planet, 
+    #просто как аргумент к переменной update.message.text после ввода update.message.reply_text, потому что такая функция введена в модуле телеграм?
+
+def find_planet(update, context):
+    list_planet = ([ephem._libastro.builtin_planets()])
     text = update.message.text
-    today = str(date.today())
-    message = text.lower().split()
-    star = message[1]
-    star = star.capitalize()    
-    if star in ephem._libastro.builtin_planets():
-      print(star)
-
-
+    if text in list_planet:
+      update.message.reply_text(getattr(ephem, text)(date.today()))
+    else:
+      update.message.reply_text('Извини, по этой планете у меня нет информации(')
     
 
 
@@ -52,8 +54,8 @@ def main():
     mybot = Updater(settings.API_KEY, request_kwargs=PROXY, use_context=True)
     dp = mybot.dispatcher
     dp.add_handler(CommandHandler("start", greet_user))
-    
-    dp.add_handler(CommandHandler("planet", ephem_planet))
+    dp.add_handler(CommandHandler("planet", get_planet))    
+    dp.add_handler(MessageHandler(Filters.text, find_planet))
     mybot.start_polling()
     mybot.idle()
 
@@ -61,28 +63,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
-
-    ____________________________
-
-
-planet = input()
-a = 5
-planets = [(0, 'Planet', 'Mercury'), 
-(1, 'Planet', 'Venus'), (2, 'Planet', 'Mars'), (3, 'Planet', 'Jupiter'), 
-(4, 'Planet', 'Saturn'), (5, 'Planet', 'Uranus'), (6, 'Planet', 'Neptune'), 
-(7, 'Planet', 'Pluto'), (8, 'Planet', 'Sun'), (9, 'Planet', 'Moon'), 
-(10, 'PlanetMoon', 'Phobos'), (11, 'PlanetMoon', 'Deimos'), 
-(12, 'PlanetMoon', 'Io'), (13, 'PlanetMoon', 'Europa'), 
-(14, 'PlanetMoon', 'Ganymede'), (15, 'PlanetMoon', 'Callisto'), 
-(16, 'PlanetMoon', 'Mimas'), (17, 'PlanetMoon', 'Enceladus'), 
-(18, 'PlanetMoon', 'Tethys'), (19, 'PlanetMoon', 'Dione'), 
-(20, 'PlanetMoon', 'Rhea'), (21, 'PlanetMoon', 'Titan'), 
-(22, 'PlanetMoon', 'Hyperion'), (23, 'PlanetMoon', 'Iapetus'), 
-(24, 'PlanetMoon', 'Ariel'), (25, 'PlanetMoon', 'Umbriel'), 
-(26, 'PlanetMoon', 'Titania'), (27, 'PlanetMoon', 'Oberon'), 
-(28, 'PlanetMoon', 'Miranda')]
-
-if planet in planets:
-    print(a)
