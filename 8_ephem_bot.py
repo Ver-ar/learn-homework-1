@@ -10,10 +10,13 @@
   бота отвечать, в каком созвездии сегодня находится планета.
 """
 import logging
+from telegram import chat
 import ephem
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 import settings
+
 from datetime import date
+
 
 logging.basicConfig(format='%(name)s - %(levelname)s - %(message)s',
                     level=logging.INFO,
@@ -36,19 +39,25 @@ def greet_user(update, context):
 
 
 def get_planet(update, context):
-    print("Вызван /planet")
-    update.message.reply_text('Введи название планеты на английском языке') # не понимаю как отсюда передается сообщение пользователя в функцию find_planet, 
-    #просто как аргумент к переменной update.message.text после ввода update.message.reply_text, потому что такая функция введена в модуле телеграм?
+  update.message.reply_text('Введи название планеты на английском языке') # не 
+  print("Вызван /planet")
 
 def find_planet(update, context):
-    list_planet = [ephem._libastro.builtin_planets()]
-    text = update.message.text
-    if text in list_planet:
-      planet = getattr(ephem, text) 
-      planet_const = ephem.constellation(planet)
-      update.message.reply_text(planet_const)
-    else:
+  list_planet = [name for _0, _1, name in ephem._libastro.builtin_planets()] 
+  planet = None
+  text = update.message.text
+  msg = text.lower().capitalize()
+  print(msg)
+  if msg in list_planet:
+    planet = getattr(ephem, msg)(date.today())
+  if planet is None and len(msg) < 9:
       update.message.reply_text('Извини, по этой планете у меня нет информации(')
+  if len(msg) > 9:
+    update.message.reply_text('ПЛА-НЕ-ТУ. НАЗ-ВА-НИ-Е.')
+  else:
+    planet_const = ephem.constellation(planet)
+    update.message.reply_text(planet_const)
+
     
 
 
